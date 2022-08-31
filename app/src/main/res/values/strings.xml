@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FinanceManagement</string>
+    <string name="finance">Finance</string>
+    <string name="add_new_expense">Add new expense</string>
+    <string name="total_income">Total Income</string>
+    <string name="total_expense">Total Expense</string>
+    <string name="balance">Balance</string>
+    <string name="expenses">Entries</string>
+</resources>
