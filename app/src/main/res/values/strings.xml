@@ -6,4 +6,11 @@
     <string name="total_expense">Total Expense</string>
     <string name="balance">Balance</string>
     <string name="expenses">Entries</string>
+    <string name="title_activity_add_new_entry">Add New Entry</string>
+    <string name="add_title">Add title</string>
+    <string name="add_amount">Add amount</string>
+    <string name="title">Title</string>
+    <string name="amount">Amount</string>
+    <string name="entry_type">Entry type</string>
+    <string name="done">Done</string>
 </resources>

@@ -24,4 +24,5 @@ class DataUtils {
         }
         return userEntities
     }
+
 }

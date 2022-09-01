@@ -1,6 +1,7 @@
 package com.financemanagement.view.screens
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.financemanagement.AddNewEntryActivity
 import com.financemanagement.R
 import com.financemanagement.model.UserEntryItem
 import com.financemanagement.view.components.UserEntryCard
@@ -111,7 +113,7 @@ fun HomeScreen() {
                 }
                 FloatingActionButton(
                     onClick = {
-                        Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+                        context.startActivity(Intent(context, AddNewEntryActivity::class.java))
                     },
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
