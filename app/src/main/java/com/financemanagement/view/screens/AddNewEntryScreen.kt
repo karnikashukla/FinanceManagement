@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,7 +45,8 @@ fun AddNewEntryScreen() {
                 label = { Text(text = stringResource(R.string.title)) },
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
-                )
+                ),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
             )
             TextField(
                 value = amountTextState,
@@ -55,20 +58,24 @@ fun AddNewEntryScreen() {
                 label = { Text(text = stringResource(R.string.amount)) },
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.White
-                )
+                ),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
             )
-            Text(
-                text = context.getString(R.string.entry_type),
-                fontSize = 20.sp,
-                style = TextStyle(color = Color.Gray),
-                modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Start
-            )
+
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
             ) {
+                Text(
+                    text = context.getString(R.string.entry_type),
+                    fontSize = 20.sp,
+                    style = TextStyle(color = Color.Gray),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(0.35f),
+                    textAlign = TextAlign.Start
+                )
+
                 radioOptions.forEach { text ->
                     Row(modifier =
                     Modifier
