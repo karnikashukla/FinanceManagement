@@ -2,22 +2,44 @@ package com.financemanagement.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.financemanagement.model.EntryType
+import com.financemanagement.service.StorageService
 import com.financemanagement.states.HomeState
-import com.financemanagement.utilities.DataUtils
+import com.financemanagement.states.ScreenEvents
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-class HomeViewModel : ViewModel(){
+class HomeViewModel : ViewModel() {
     val state = MutableStateFlow(HomeState())
+    private val storageService = StorageService()
 
     init {
-        state.update {
-            it.copy(
-                userEntries = DataUtils().createEntityList()
-            )
-        }
+//        val data = DataUtils().createEntityList()
+//        data.forEach(){ item ->
+//            storageService.addNewEntry(item)
+//        }
+        getUserEntries()
+    }
 
-        getTotalIncomeExpense()
+    private fun getUserEntries() {
+        storageService.entriesDataListener(
+            newEntry = { userEntryList ->
+//                val userEntriesList = state.value.userEntries
+//                userEntriesList.add(userEntry)
+                state.update {
+                    it.copy(
+                        userEntries = userEntryList
+                    )
+                }
+                getTotalIncomeExpense()
+            },
+            onError = { errorMessage ->
+                state.update {
+                    it.copy(
+                        screenEvents = ScreenEvents.showToast(errorMessage)
+                    )
+                }
+            }
+        )
     }
 
     private fun getTotalIncomeExpense() {
@@ -26,11 +48,11 @@ class HomeViewModel : ViewModel(){
 
         val userEntities = state.value.userEntries
 
-        for (i in userEntities.indices) {
-            if (userEntities[i].entryType == EntryType.INCOME)
-                totalIncome += userEntities[i].amount
+        for (i in userEntities) {
+            if (i.entryType == EntryType.INCOME)
+                totalIncome += i.amount
             else
-                totalExpense += userEntities[i].amount
+                totalExpense += i.amount
         }
 
         state.update {

@@ -10,6 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.financemanagement.AddNewEntryActivity
 import com.financemanagement.R
 import com.financemanagement.model.UserEntryItem
+import com.financemanagement.states.ScreenEvents
 import com.financemanagement.view.components.UserEntryCard
 import com.financemanagement.viewmodels.HomeViewModel
 
@@ -31,6 +33,14 @@ fun HomeScreen() {
     val homeViewModel = HomeViewModel()
     val screenState by homeViewModel.state.collectAsState()
 
+    LaunchedEffect(screenState.screenEvents) {
+        when (val event = screenState.screenEvents) {
+            is ScreenEvents.showToast -> {
+                Toast.makeText(context, event.text, Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
+    }
     Column {
         TopAppBar(title = { Text(text = context.getString(R.string.finance)) })
         Column {
