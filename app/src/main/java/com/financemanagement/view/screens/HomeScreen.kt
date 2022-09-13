@@ -35,7 +35,7 @@ fun HomeScreen() {
 
     LaunchedEffect(screenState.screenEvents) {
         when (val event = screenState.screenEvents) {
-            is ScreenEvents.showToast -> {
+            is ScreenEvents.ShowToast -> {
                 Toast.makeText(context, event.text, Toast.LENGTH_SHORT).show()
             }
             else -> {}

@@ -7,10 +7,10 @@ data class HomeState(
     val userEntries: List<UserEntryItem> = emptyList(),
     val totalExpense: Double = 0.0,
     val totalIncome: Double = 0.0,
-    val screenEvents: ScreenEvents = ScreenEvents.none()
+    val screenEvents: ScreenEvents = ScreenEvents.None()
 ) : State
 
 sealed class ScreenEvents {
-    class showToast(val text: String) : ScreenEvents()
-    class none : ScreenEvents()
+    class ShowToast(val text: String) : ScreenEvents()
+    class None : ScreenEvents()
 }

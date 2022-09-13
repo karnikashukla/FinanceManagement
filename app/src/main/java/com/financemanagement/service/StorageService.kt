@@ -1,5 +1,6 @@
 package com.financemanagement.service
 
+import com.financemanagement.model.EntryType
 import com.financemanagement.model.UserEntryItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,19 +19,15 @@ class StorageService {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val entries: ArrayList<UserEntryItem> = ArrayList()
-/*                var entry: UserEntryItem
 
-                for (postSnapshot in dataSnapshot.children) {
-                    entry = postSnapshot.getValue<UserEntryItem>()!!
-                    entry.let {
-                        entries.add(it)
-                    }
-                }*/
-                val entriesMap: HashMap<String, UserEntryItem>? =
-                    dataSnapshot.value as HashMap<String, UserEntryItem>?
-
-                entriesMap?.let {
-                    entries.addAll(it.values)
+                dataSnapshot.children.forEach {
+                    val userEntryItem = UserEntryItem(
+                        title = it.child("title").getValue(String::class.java).orEmpty(),
+                        entryType = it.child("entryType").getValue(EntryType::class.java)
+                            ?: EntryType.UNKNOWN,
+                        amount = it.child("amount").getValue(Double::class.java) ?: 0.0,
+                    )
+                    entries.add(userEntryItem)
                 }
                 newEntry(entries)
             }

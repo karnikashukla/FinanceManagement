@@ -12,5 +12,6 @@ data class UserEntryList(
 
 enum class EntryType {
     INCOME,
-    EXPENSE
+    EXPENSE,
+    UNKNOWN
 }

@@ -35,7 +35,7 @@ class HomeViewModel : ViewModel() {
             onError = { errorMessage ->
                 state.update {
                     it.copy(
-                        screenEvents = ScreenEvents.showToast(errorMessage)
+                        screenEvents = ScreenEvents.ShowToast(errorMessage)
                     )
                 }
             }
